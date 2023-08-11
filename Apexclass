@@ -1,0 +1,6 @@
+public with sharing class RelatedCon{
+    @AuraEnabled(cacheable=true)
+       public static List<Contact> getcon(String acId){
+           Return[SELECT FirstName,LastName,Email,Phone From Contact WHERE AccountId=:acId];
+       }
+   }
