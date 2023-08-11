@@ -1,0 +1,45 @@
+import { LightningElement,wire,track,api } from 'lwc';
+import getcon from '@salesforce/apex/RelatedCon.getcon';
+export default class RelatedContact extends LightningElement {
+
+//getting current record's id
+    @api recordId;
+
+    @track columns = [{
+        label: 'FirstName',
+        fieldName: 'firstName',
+        type: 'text',
+        sortable: true
+    },
+   
+    {
+        label: 'LastName',
+        fieldName: 'LastName',
+        type: 'text',
+        sortable: true
+    },
+    {
+        label: 'Email',
+        fieldName: 'Email',
+        type: 'Email',
+        sortable: true
+    },
+    {
+        label: 'Phone ',
+        fieldName: 'phone',
+        type: 'Phone',
+        sortable: true
+    }
+];
+
+@track error;
+@track ConList ;
+@wire(getcon,{acId:'$recordId'}) wiredContact({error, data}) {
+    if (data) {
+        this.ConList = data;
+        console.log("@@@@@data"+data);
+    } else if (error) {
+        this.error = error;
+    }
+}
+}
